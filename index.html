@@ -19,16 +19,206 @@
         .copy-btn.copied {
             background-color: #10b981 !important;
         }
+
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .result-box {
+            transition: all 0.3s ease;
+        }
+
+        .result-box.filled {
+            border-left: 4px solid #3b82f6;
+            background-color: #f8fafc;
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen p-4 md:p-8">
+    <div id="tutorialModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0 z-10 fade-in"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 relative z-[999]">
+            <div class="modal bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto slide-up">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-book mr-3 text-blue-500"></i>
+                            Cara Menggunakan
+                        </h2>
+                        <button id="closeModal"
+                            class="text-gray-500 hover:text-gray-700 text-2xl transition-all duration-200 hover:rotate-90">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Enkripsi Section -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-blue-600 mb-4 flex items-center">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            🔒 Cara Enkripsi
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">1</span>
+                                <p>Masukkan teks biasa yang ingin dirahasiakan</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">2</span>
+                                <p>Klik tombol <span
+                                        class="bg-blue-500 text-white px-2 py-1 rounded text-sm">ENKRIPSI</span></p>
+                            </div>
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">3</span>
+                                <p>Salin teks rahasia dari bagian <strong>"Setelah Permutasi"</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dekripsi Section -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-green-600 mb-4 flex items-center">
+                            <i class="fas fa-unlock-alt mr-2"></i>
+                            🔓 Cara Dekripsi
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">1</span>
+                                <p>Paste teks rahasia yang diterima</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">2</span>
+                                <p>Klik tombol <span
+                                        class="bg-green-500 text-white px-2 py-1 rounded text-sm">DEKRIPSI</span></p>
+                            </div>
+                            <div class="flex items-start">
+                                <span
+                                    class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-1 flex-shrink-0">3</span>
+                                <p>Baca pesan asli dari bagian <strong>"Setelah Reverse Substitusi"</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contoh Section -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-purple-600 mb-4 flex items-center">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            💡 Contoh Cepat
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg slide-up" style="animation-delay: 0.1s">
+                                <h4 class="font-semibold text-blue-700 mb-2">Enkripsi:</h4>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Input:</strong> "makan nasi"</p>
+                                    <p><strong>→ Klik ENKRIPSI</strong></p>
+                                    <p><strong>Hasil:</strong> "kwuxkx_ksc "</p>
+                                </div>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg slide-up" style="animation-delay: 0.2s">
+                                <h4 class="font-semibold text-green-700 mb-2">Dekripsi:</h4>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>Input:</strong> "kwuxkx_ksc"</p>
+                                    <p><strong>→ Klik DEKRIPSI</strong></p>
+                                    <p><strong>Hasil:</strong> "makan nasi"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tips Section -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 slide-up"
+                        style="animation-delay: 0.3s">
+                        <h4 class="font-semibold text-yellow-700 mb-2 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            Tips Penting
+                        </h4>
+                        <ul class="text-sm space-y-1 text-yellow-700">
+                            <li>• Gunakan <strong>ciphertext</strong> untuk dekripsi, jangan plaintext asli</li>
+                            <li>• <strong>Spasi</strong> akan berubah menjadi <strong>underscore (_)</strong></li>
+                            <li>• Tombol <strong>"Salin"</strong> tersedia untuk menyalin hasil</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button id="closeModalBtn"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 pulse">
+                            Mulai Sekarang!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Sistem Enkripsi & Dekripsi</h1>
-        <p class="text-center text-gray-600 mb-8">Menggunakan metode substitusi dan permutasi</p>
+        <!-- Header dengan Tombol Tutorial -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2 slide-up">Sistem Enkripsi & Dekripsi</h1>
+            <p class="text-center text-gray-600 mb-4 slide-up" style="animation-delay: 0.1s">Menggunakan metode
+                substitusi dan permutasi</p>
+            <button id="tutorialBtn"
+                class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-md flex items-center mx-auto slide-up pulse"
+                style="animation-delay: 0.2s">
+                <i class="fas fa-question-circle mr-2"></i> Cara Penggunaan
+            </button>
+        </div>
 
         <!-- Input Section -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 slide-up" style="animation-delay: 0.3s">
             <div class="flex items-center mb-4">
                 <i class="fas fa-keyboard text-blue-500 text-xl mr-3"></i>
                 <h2 class="text-xl font-semibold text-gray-800">Input Teks</h2>
@@ -38,7 +228,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         Masukkan teks yang ingin dienkripsi atau didekripsi:
                     </label>
-                    <input id="inputText" type="text" placeholder="Contoh: Barto orang" value="Barto orang"
+                    <input id="inputText" type="text" placeholder="Contoh: makan nasi" value="makan nasi"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
                 </div>
                 <div class="flex gap-2">
@@ -57,7 +247,7 @@
         <!-- Output Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Enkripsi Output -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
+            <div class="bg-white p-6 rounded-2xl shadow-lg slide-up" style="animation-delay: 0.4s">
                 <div class="flex items-center mb-4">
                     <i class="fas fa-lock text-purple-500 text-xl mr-3"></i>
                     <h2 class="text-xl font-semibold text-gray-800">Hasil Enkripsi</h2>
@@ -72,7 +262,8 @@
                             <i class="fas fa-copy mr-1"></i> Salin
                         </button>
                     </p>
-                    <div id="outputSubstitusi" class="p-3 bg-gray-50 rounded border text-blue-700 font-mono min-h-10">
+                    <div id="outputSubstitusi"
+                        class="p-3 bg-gray-50 rounded border text-blue-700 font-mono min-h-10 result-box">
                     </div>
                 </div>
 
@@ -85,13 +276,14 @@
                             <i class="fas fa-copy mr-1"></i> Salin
                         </button>
                     </p>
-                    <div id="outputPermutasi" class="p-3 bg-gray-50 rounded border text-purple-700 font-mono min-h-10">
+                    <div id="outputPermutasi"
+                        class="p-3 bg-gray-50 rounded border text-purple-700 font-mono min-h-10 result-box">
                     </div>
                 </div>
             </div>
 
             <!-- Dekripsi Output -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
+            <div class="bg-white p-6 rounded-2xl shadow-lg slide-up" style="animation-delay: 0.5s">
                 <div class="flex items-center mb-4">
                     <i class="fas fa-unlock text-green-500 text-xl mr-3"></i>
                     <h2 class="text-xl font-semibold text-gray-800">Hasil Dekripsi</h2>
@@ -107,7 +299,7 @@
                         </button>
                     </p>
                     <div id="outputReversePermutasi"
-                        class="p-3 bg-gray-50 rounded border text-green-700 font-mono min-h-10"></div>
+                        class="p-3 bg-gray-50 rounded border text-green-700 font-mono min-h-10 result-box"></div>
                 </div>
 
                 <div>
@@ -120,7 +312,7 @@
                         </button>
                     </p>
                     <div id="outputReverseSubstitusi"
-                        class="p-3 bg-gray-50 rounded border text-teal-700 font-mono min-h-10"></div>
+                        class="p-3 bg-gray-50 rounded border text-teal-700 font-mono min-h-10 result-box"></div>
                 </div>
             </div>
         </div>
