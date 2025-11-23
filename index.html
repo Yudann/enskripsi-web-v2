@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enkripsi & Dekripsi Teks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .copy-btn {
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background-color: #10b981 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Sistem Enkripsi & Dekripsi</h1>
+        <p class="text-center text-gray-600 mb-8">Menggunakan metode substitusi dan permutasi</p>
+
+        <!-- Input Section -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-keyboard text-blue-500 text-xl mr-3"></i>
+                <h2 class="text-xl font-semibold text-gray-800">Input Teks</h2>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                <div class="flex-1">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Masukkan teks yang ingin dienkripsi atau didekripsi:
+                    </label>
+                    <input id="inputText" type="text" placeholder="Contoh: Barto orang" value="Barto orang"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                </div>
+                <div class="flex gap-2">
+                    <button id="btnEnkripsi"
+                        class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-md flex items-center">
+                        <i class="fas fa-shield-alt mr-2"></i> Enkripsi
+                    </button>
+                    <button id="btnDekripsi"
+                        class="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-md flex items-center">
+                        <i class="fas fa-unlock-alt mr-2"></i> Dekripsi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Enkripsi Output -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-lock text-purple-500 text-xl mr-3"></i>
+                    <h2 class="text-xl font-semibold text-gray-800">Hasil Enkripsi</h2>
+                </div>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2 flex justify-between">
+                        <span>Setelah Substitusi:</span>
+                        <button
+                            class="copy-btn text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-all duration-200"
+                            data-target="outputSubstitusi">
+                            <i class="fas fa-copy mr-1"></i> Salin
+                        </button>
+                    </p>
+                    <div id="outputSubstitusi" class="p-3 bg-gray-50 rounded border text-blue-700 font-mono min-h-10">
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-600 mb-2 flex justify-between">
+                        <span>Setelah Permutasi (Final Ciphertext):</span>
+                        <button
+                            class="copy-btn text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-all duration-200"
+                            data-target="outputPermutasi">
+                            <i class="fas fa-copy mr-1"></i> Salin
+                        </button>
+                    </p>
+                    <div id="outputPermutasi" class="p-3 bg-gray-50 rounded border text-purple-700 font-mono min-h-10">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dekripsi Output -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-unlock text-green-500 text-xl mr-3"></i>
+                    <h2 class="text-xl font-semibold text-gray-800">Hasil Dekripsi</h2>
+                </div>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2 flex justify-between">
+                        <span>Setelah Reverse Permutasi:</span>
+                        <button
+                            class="copy-btn text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-all duration-200"
+                            data-target="outputReversePermutasi">
+                            <i class="fas fa-copy mr-1"></i> Salin
+                        </button>
+                    </p>
+                    <div id="outputReversePermutasi"
+                        class="p-3 bg-gray-50 rounded border text-green-700 font-mono min-h-10"></div>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-600 mb-2 flex justify-between">
+                        <span>Setelah Reverse Substitusi (Plaintext):</span>
+                        <button
+                            class="copy-btn text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-all duration-200"
+                            data-target="outputReverseSubstitusi">
+                            <i class="fas fa-copy mr-1"></i> Salin
+                        </button>
+                    </p>
+                    <div id="outputReverseSubstitusi"
+                        class="p-3 bg-gray-50 rounded border text-teal-700 font-mono min-h-10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
